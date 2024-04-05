@@ -1,0 +1,1 @@
+{"name":"Local: roomtemperature","url":"c:\\Users\\pasin\\OneDrive\\Desktop\\Coding\\cp\\roomtemperature\\roomtemperature.cpp","tests":[{"id":1707115366613,"input":"2 4\n19 24","output":"1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\pasin\\OneDrive\\Desktop\\Coding\\cp\\roomtemperature\\roomtemperature.cpp","group":"local","local":true}
