@@ -1,0 +1,97 @@
+#include <bits/stdc++.h>
+#include "cheatsheet.h"
+#include "stub.cpp"
+#define sz(x) (int)x.size()
+#define pb push_back
+using namespace std;
+
+vector<int> add(vector<int> a, vector<int> b) {
+    reverse(a.begin(), a.end());
+    reverse(b.begin(), b.end());
+    while (sz(a) < sz(b)) a.pb(0);
+    while (sz(b) < sz(a)) b.pb(0);
+
+    vector<int> c;
+    bool carry = 0;
+    for (int i = 0; i < sz(a); ++i) {
+        if (a[i]+b[i]+carry <= 350000) {
+            c.pb(a[i]+b[i]+carry);
+            carry = 0;
+        }
+        else {
+            c.pb(a[i]+b[i]+carry-350001);
+            carry = 1;
+        }
+    }
+    if (carry) c.pb(1);
+    reverse(c.begin(), c.end());
+    return c;
+}
+
+vector<int> mul(vector<int> a, vector<int> b) {
+    vector<vector<int>> base = {{0}};
+    for (int i = 1; i <= 350000; ++i) base.pb(add(base.back(), a));
+    reverse(b.begin(), b.end());
+    vector<int> c;
+    for (int i = 0; i < sz(b); ++i) {
+        vector<int> cur = base[b[i]];
+        for (int j = 0; j < i; ++j) cur.pb(0);
+        c = add(c, cur);
+    }
+    return c;
+}
+
+bool greater_than(vector<int> a, vector<int> b) {
+
+}
+
+vector<int> fac[1100];
+
+vector<int> write_cheatsheet(int N, vector<int> A) {
+//    for (int i = 1; i < 1100; ++i) fw[i] = (i&-i);
+    fac[0].pb(0);
+    for (int i = 1; i < 1100; ++i) fac[i] = mul(fac[i-1], {i});
+    cout << fac[1067].size() << '\n';
+    vector<int> ret, cur;
+    for (int i = 0; i < 1068; ++i) {
+//        for (int j = 1; j <= 1067; ++j) {
+//            if (greater_than(add(cur, fac[1067-i]), order)) {
+//                int l = 1, r = 1067;
+//                while (l < r) {
+//                    int mid = (l+r)/2;
+//                    if (query(mid) < j) l = mid+1;
+//                    else r = mid;
+//                }
+//                ret.pb(l-1);
+//                update(l, -1);
+//                break;
+//            }
+//            else cur = add(cur, fac[1067-i]);
+//        }
+    }
+	return ret;
+}
+
+vector<int> recover_answer(int N, vector<int> R){
+//    for (int i = 1; i < 1100; ++i) fw[i] = (i&-i);
+//    string order = "0";
+//    for (int i = 1; i <= 1067; ++i) {
+//        int idx = query(R[i-1]+1);
+//        update(R[i-1]+1, -1);
+//        for (int j = 1; j < idx; ++j) order = add(order, fac[1067-i]);
+//    }
+    vector<int> ret;
+//    string cur = "0";
+//    for (int i = 0; i < N; ++i) {
+//        string p = power("350001", N-i-1);
+//        int l = 0, r = 350000;
+//        while (l < r) {
+//            int mid = (l+r+1)/2;
+//            if (greater_than(add(cur, mul(to_string(mid), p)), order)) r = mid-1;
+//            else l = mid;
+//        }
+//        ret.pb(l);
+//        cur = add(cur, mul(to_string(l), p));
+//    }
+    return ret;
+}

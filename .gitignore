@@ -1,0 +1,20 @@
+### VS Code ###
+.vscode/
+
+
+### private files ###
+./play
+
+### junk files ###
+*.exe
+*.in
+*.out
+*.cpp-save-failed
+*.cph
+*.h
+*.o
+*.sol
+*.bin
+*.so
+*.zip
+*.prob
