@@ -68,9 +68,9 @@ pair<ll,ll> euclid(ll a,ll b){
 }
 
 void solve() {
-  ll n, m, h; cin >> n >> m >> h;
-  vll l(n+1), s(n+1), adj[n+1], vis(n+1);
-  vll dis(n+1, 1e18);
+  int n, m, h; cin >> n >> m >> h;
+  vi l(n+1), s(n+1), adj[n+1], vis(n+1);
+  vll dis(n+1, LINF);
   rep(i, 1, n) cin >> l[i];
   rep(i, 1, n) cin >> s[i];
   rep(i, 1, m) {
@@ -81,20 +81,19 @@ void solve() {
   dis[1] = 0;
   pq.push({dis[1], 1});
   while (!pq.empty()) {
-    int a = pq.top().nd; pq.pop();
+    auto [t, a] = pq.top(); pq.pop();
     if (vis[a]) continue; vis[a] = 1;
     for (auto b : adj[a]) {
-      ll dl = l[a]-l[b], ds = s[b]-s[a];
-      if (ds < 0) ds = -ds, dl = -dl;
-      ll g = __gcd(ds, h);
-      if (dl % g != 0) continue;
-      ll x0 = euclid(ds, h).st*(dl/g);
-      ll W = x0 + (dis[a]-x0)/(h/g)*(h/g);
-      if (W < dis[a]) W += h/g;
+      int L = l[a]-l[b], S = s[b]-s[a];
+      if (S < 0) S = -S, L = -L;
+      int g = __gcd(S, h);
+      if (L % g != 0) continue;
+      ll ans = euclid(S, h).st * L/g;
+      ll W = ceil(1.0*(t-ans)/(h/g)) * (h/g) + ans;
       if (ckmin(dis[b], W+1)) pq.push({dis[b], b});
     }
   }
-  cout << (dis[n] == 1e18 ? -1 : dis[n]) << nl;
+  cout << (dis[n] == LINF ? -1 : dis[n]) << nl;
 }
 
 int main(int argc, char* argv[]) {

@@ -35,7 +35,7 @@ struct fenwick {
     int x = 0;
     T cur{};
     for (int i = 1<<(31-__builtin_clz(n)); i > 0; i>>=1)
-      if (x+i <= n && cur+t[x+i] < k) x+=i, cur+=t[i];
+      if (x+i <= n && cur+t[x+i] < k) x+=i, cur+=t[x];
     return x;
   }
 };
