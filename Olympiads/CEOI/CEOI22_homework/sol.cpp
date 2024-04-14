@@ -15,8 +15,6 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 typedef vector<pld> vpld;
 typedef vector<vi> vvi;
-typedef tuple<ll, ll, ll> t3;
-typedef tuple<ll, ll, ll, ll> t4;
 
 template<typename T> using pq = priority_queue<T>;
 template<typename T> using pqg = priority_queue<T, vector<T>, greater<T>>;
@@ -40,15 +38,19 @@ const int MOD = 1e9 + 7;
 const int INF = 0x3fffffff;
 const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
-const int MX = 1e5 + 3;
+const int MX = 1e6 + 3;
+
+int L[MX], R[MX];
 
 void solve() {
+  string S; cin >> S;
+  
 }
 
 int main(int argc, char* argv[]) {
   ios_base::sync_with_stdio(0); cin.tie(NULL);
   int t = 1;
-  cin >> t;
+  // cin >> t;
   while (t--) { solve(); }
   return 0;
 }
