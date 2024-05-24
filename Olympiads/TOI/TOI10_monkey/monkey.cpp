@@ -15,6 +15,9 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 typedef vector<pld> vpld;
 typedef vector<vi> vvi;
+typedef tuple<ll, ll, ll> t3;
+typedef tuple<ll, ll, ll, ll> t4;
+typedef tuple<ll, ll, ll, ll, ll> t5;
 
 template<typename T> using pq = priority_queue<T>;
 template<typename T> using pqg = priority_queue<T, vector<T>, greater<T>>;
@@ -65,6 +68,7 @@ void solve() {
     stick.pb({h, u, u+1});
   }
   sort(all(stick));
+
   int s; cin >> s;
   reach[s] = 1;
   reach[s+1] = reach[s-1] = 1;
@@ -74,6 +78,7 @@ void solve() {
     else if (v == s) s--;
     reach[s+1] = reach[s-1] = 1;
   }
+  
   int mx = 0;
   rep(i, 1, n) {
     if (!reach[i]) continue;
@@ -85,7 +90,7 @@ void solve() {
 int main(int argc, char* argv[]) {
   ios_base::sync_with_stdio(0); cin.tie(NULL);
   int t = 1;
-  // cin >> t;
+//  cin >> t;
   while (t--) { solve(); }
   return 0;
 }
