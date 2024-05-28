@@ -45,16 +45,24 @@ const int MX = 1e5 + 3;
 void solve() {
   int n; cin >> n;
   string s; cin >> s;
-  ll ans = 0;
-  for (int l = 1; l <= n; ++l) {
-    int cnt = 0;
-    for (int r = l; r <= n; ++r) {
-      if (s[r-1] == '1') {
-        cnt++;
-        ans += min(3, n-r+1)*cnt;
-        r+=2;
+  int z = 0;
+  ll ans = 0, cnt = 0;
+  queue<pii> q;
+  for (int i = 1; i <= n; ++i) {
+    if (s[i-1] == '0') {
+      z++;
+      ans += cnt;
+    }
+    else {
+      int cur = z+1;
+      z = 0;
+      while (!q.empty() && q.front().nd <= i-3) {
+        cur += q.front().st;
+        q.pop();
       }
-      else ans += cnt;
+      q.push({cur, i});
+      cnt += cur;
+      ans += cnt;
     }
   }
   cout << ans << nl;

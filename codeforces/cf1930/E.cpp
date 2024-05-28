@@ -44,20 +44,11 @@ const int MX = 1e5 + 3;
 
 void solve() {
   int n; cin >> n;
-  string s; cin >> s;
-  ll ans = 0;
-  for (int l = 1; l <= n; ++l) {
-    int cnt = 0;
-    for (int r = l; r <= n; ++r) {
-      if (s[r-1] == '1') {
-        cnt++;
-        ans += min(3, n-r+1)*cnt;
-        r+=2;
-      }
-      else ans += cnt;
+  for (int k = 1; k <= (n-1)/2; ++k) {
+    for (int m = 2*k; m <= n; m += 2*k) {
+      
     }
   }
-  cout << ans << nl;
 }
 
 int main(int argc, char* argv[]) {
