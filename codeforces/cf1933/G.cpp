@@ -59,24 +59,22 @@ const int MX = 2e5 + 10;
 
 void solve() {
   int n, m, q; cin >> n >> m >> q;
-  set<int> se;
-  rep(i, 0, 7) se.ins(i);
-  cout << sz(se) << nl;
+  vi v(8, 1);
+  cout << 8 << nl;
   while (q--) {
     int x, y; cin >> x >> y;
     string s; cin >> s;
     bool o = s=="circle";
     x--, y--;
     rep(i, 0, 7) {
-      if (!se.count(i)) continue;
       int axis = i&(1<<2), sft = i&(1<<1), srto = i&(1<<0);
       if (axis) swap(x, y);
       bool target = (srto ^ (y%4 > 1) ^ (x%2));
       if (sft && y%4%2) target ^= 1;
-      if (target != o) se.erase(i); 
+      if (target != o) v[i] = 0; 
       if (axis) swap(x, y);
     }
-    cout << sz(se) << nl;
+    cout << accumulate(all(v), 0) << nl;
   }
 }
 
