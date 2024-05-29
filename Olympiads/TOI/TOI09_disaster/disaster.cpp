@@ -56,38 +56,16 @@ const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
 const int MX = 26;
 
-set<int> adj[MX];
-int cur;
-bool vis[MX];
+vpii adj[MX];
+bool vis[510];
 
-void dfs(int i, int s, int t) {
-  vis[i] = 1;
-  for (auto j : adj[i]) {
-    if (i == s && j == t) continue;
-    if (j == s && i == t) continue;
-    if (!vis[j]) dfs(j, s, t);
+void dfs(int i) {
+  for (auto [j, idx] : adj[i]) {
+    if (vis[idx]) continue;
+    vis[idx] = 1;
+    dfs(j);
   }
-}
-
-bool ckbridge(int u, int v) {
-  rep(i, 0, MX-1) vis[i] = 0;
-
-  dfs(v, v, u);
-  
-  return vis[u];
-} 
-
-bool walk() {
-  if (sz(adj[cur]) == 0) return false;
-  int next = -1;
-  for (auto u : adj[cur]) {
-    if (ckbridge(cur, u)) next = u;
-  }
-  if (next == -1) next = *adj[cur].begin();
-  adj[cur].erase(next);
-  adj[next].erase(cur);
-  cur = next;
-  return true;
+  cout << (char)(i+'A') << " ";
 }
 
 void solve() {
@@ -95,15 +73,13 @@ void solve() {
   rep(i, 0, n-1) {
     string s; cin >> s;
     int u = s[0]-'A', v = s[1]-'A';
-    adj[u].ins(v); adj[v].ins(u); 
+    adj[u].pb({v, i}); adj[v].pb({u, i}); 
   }
-
+  int srt = 0;
   rep(i, 0, MX-1) {
-    if (sz(adj[i]) % 2) cur = i;
+    if (sz(adj[i]) % 2) srt = i;
   }
-  do { 
-    cout << (char)(cur+'A') << " "; 
-  } while (walk());
+  dfs(srt);
 }
 
 int main(int argc, char* argv[]) {
