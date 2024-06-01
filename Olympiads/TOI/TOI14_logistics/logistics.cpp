@@ -59,6 +59,7 @@ const int MX = 1e2 + 10;
 int p[MX];
 vpii adj[MX];
 int dis[MX][MX][2];
+bool vis[MX][MX][2];
 
 void solve() {
   int n; cin >> n;
@@ -76,6 +77,8 @@ void solve() {
   pq.push({dis[s][0][0], {s, 0, 0}});
   while (!pq.empty()) {
     auto [a, curf, skip] = pq.top().nd; pq.pop();
+    if (vis[a][curf][skip]) continue;
+    vis[a][curf][skip] = 1;
     //add fuel normally
     if (curf < f && dis[a][curf+1][skip] > dis[a][curf][skip] + p[a]) {
       dis[a][curf+1][skip] = dis[a][curf][skip] + p[a];
