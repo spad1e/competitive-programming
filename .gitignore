@@ -4,6 +4,7 @@
 
 ### private files ###
 play
+testmaker
 
 ### junk files ###
 *.exe
@@ -11,7 +12,6 @@ play
 *.out
 *.cpp.save-failed
 *.cph
-*.h
 *.o
 *.sol
 *.bin
