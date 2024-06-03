@@ -63,7 +63,7 @@ void solve() {
   rep(i, 1, n) cin >> e[i];
   ll l = 0, r = 5e10;
   while (l < r) {
-    ll mid = (l+r+1)/2, sum = 0, cnt = 0;
+    ll mid = (l+r+1)>>1, sum = 0, cnt = 0;
     pqg<int> pq;
     rep(i, 1, n) {
       pq.push(e[i]), sum += e[i];

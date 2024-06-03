@@ -63,7 +63,7 @@ void solve() {
   rep(i, 1, m) cin >> t[i];
   ll l = 0, r = 1e12;
   while (l < r) {
-    ll mid = (l+r)/2, sum = 0;
+    ll mid = (l+r)>>1, sum = 0;
     rep(i, 1, m) sum += mid/t[i];
     if (sum >= n) r = mid;
     else l = mid+1;

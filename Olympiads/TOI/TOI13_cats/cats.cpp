@@ -63,7 +63,7 @@ void solve() {
   rep(i, 1, n) cin >> a[i];
   ll l = 0, r = (1ll<<31);
   while (l < r) {
-    ll mid = (l+r)/2;
+    ll mid = (l+r)>>1;
     bool check = 1; 
     int bigger = 0;
     rep(i, 1, n) {
