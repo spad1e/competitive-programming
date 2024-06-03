@@ -66,8 +66,8 @@ void solve() {
     string s; cin >> s;
     memset(dp, 0, sizeof(dp));
     dp[0][0] = 1;
-    rep(i, n) {
-      rep(j, m) {
+    rep(i, 0, n) {
+      rep(j, 0, m) {
         if (i > 0) dp[i][j] |= dp[i-1][j] && s1[i-1] == s[i+j-1];
         if (j > 0) dp[i][j] |= dp[i][j-1] && s2[j-1] == s[i+j-1];
       }
