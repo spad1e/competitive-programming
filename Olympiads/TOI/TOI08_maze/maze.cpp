@@ -1,5 +1,5 @@
 /*Note: 
-  testcase 1 -> chnage maze data type from bool -> int
+  testcase 1 -> change maze data type from bool -> int
   testcase 4, 8 -> stx, sty has wall, and is allowed to walk right out ? 
 */
 #pragma once
