@@ -1,3 +1,6 @@
+/*Note: This problem's testcase doesn't account for the case where the answer is at the minimum height of all the
+  Note: boxes. Thus, you are not required to set the original height to minh (see code below) but it's always better to do things right.
+*/
 #pragma once
 #include <bits/stdc++.h>
 using namespace std;
