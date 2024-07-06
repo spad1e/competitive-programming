@@ -68,12 +68,9 @@ void find_bridge(int u, int prt, int n) {
     if (!disc[v]) {
       find_bridge(v, u, n);
       if (disc[u] < low[v]) ckmax(ans, (ll)s[v]*(n-s[v]));
-      ckmin(low[u], low[v]);
       s[u] += s[v];
     }
-    else {
-      ckmin(low[u], disc[v]);
-    }
+    ckmin(low[u], low[v]);
   }
 }
 
