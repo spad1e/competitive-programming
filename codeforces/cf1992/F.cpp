@@ -70,13 +70,11 @@ void solve() {
     if (x%a[i] || a[i]==1) continue;
     if (s.count(x/a[i])) ans++, s.clear();
     vi ns;
-    auto ed = lower_bound(all(s), x/a[i]+1);
-    for (auto it = s.begin(); it != ed; ++it) {
-      int j = *it;
+    for (auto j : s) {
       if ((ll)j*a[i] <= x) ns.pb(j*a[i]);
     }
     ns.pb(a[i]);
-    for (auto j : ns) s.ins(j);
+    for (auto j : ns) if (x%j==0) s.ins(j);
   }
   cout << ans << nl;
 }
