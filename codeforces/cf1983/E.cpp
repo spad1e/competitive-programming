@@ -59,16 +59,12 @@ const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
 const int MX = 4e5 + 3;
 
-ll inv[MX], v[MX];
+ll v[MX];
 
 ll binpow(ll a, ll b) {
   ll res=1;
   for (;b;b>>=1,a=a*a%MOD) if (b&1) res = res*a%MOD; 
   return res;
-}
-
-void init() {
-  rep(i, 1, MX-1) inv[i] = binpow(i, MOD-2);
 }
 
 void solve() {
@@ -79,17 +75,16 @@ void solve() {
     if (i <= k) exp_sp = (exp_sp + v[i])%MOD;
     else exp_n = (exp_n + v[i])%MOD;
   }
-  exp_sp = exp_sp*inv[k]%MOD, exp_n = exp_n*inv[x]%MOD;
+  exp_sp = exp_sp*binpow(x+1, MOD-2)%MOD, exp_n = exp_n*binpow(x, MOD-2)%MOD;
   ll a_n = (x+1)/2*exp_n%MOD;
   ll b_n = x/2*exp_n%MOD;
-  ll a_sp = k*((x+2)/2)%MOD*inv[x+1]%MOD*exp_sp%MOD;
-  ll b_sp = k*((x+1)/2)%MOD*inv[x+1]%MOD*exp_sp%MOD;
+  ll a_sp = (x+2)/2*exp_sp%MOD;
+  ll b_sp = (x+1)/2*exp_sp%MOD;
   cout << (a_n+a_sp)%MOD << " " << (b_n+b_sp)%MOD << nl;
 }
 
 int main(int argc, char* argv[]) {
   ios_base::sync_with_stdio(0); cin.tie(NULL);
-  init();
   int t = 1;
   cin >> t;
   while (t--) { solve(); }
