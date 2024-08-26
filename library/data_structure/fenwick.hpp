@@ -5,8 +5,6 @@ verification :
   https://cses.fi/problemset/task/1648/
   https://programming.in.th/tasks/1106 (test find method)
 */
-#pragma once
-#include "../template/header.hpp"
 template<class T>
 struct fenwick {
   int n;

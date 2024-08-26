@@ -6,7 +6,7 @@ verification :
   https://cses.fi/problemset/task/1143 (test findfirst)
 */
 #pragma once
-#include "../template/header.hpp"
+#include "header.hpp"
 
 template<class Node>
 struct SegTree {

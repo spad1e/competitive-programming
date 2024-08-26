@@ -17,9 +17,23 @@ typedef vector<pld> vpld;
 typedef vector<vi> vvi;
 typedef tuple<ll, ll, ll> t3;
 typedef tuple<ll, ll, ll, ll> t4;
+typedef tuple<ll, ll, ll, ll, ll> t5;
 
 template<typename T> using pq = priority_queue<T>;
 template<typename T> using pqg = priority_queue<T, vector<T>, greater<T>>;
+
+#define rep0(a) for (int i = 0; i < a; ++i)
+#define rep1(i, a) for (int i = 0; i < a; ++i)
+#define rep2(i, a, b) for (int i = a; i <= b; ++i)
+#define rep3(i, a, b, c) for (int i = a; i <= b; i+=c) 
+#define overload4(a, b, c, d, e, ...) e
+#define rep(...) overload4(__VA_ARGS__, rep3, rep2, rep1, rep0)(__VA_ARGS__)
+#define repd0(a) for (int i = a; i >= 1; --i)
+#define repd1(i, a) for (int i = a; i >= 1; --i)
+#define repd2(i, a, b) for (int i = b; i >= a; --i)
+#define repd3(i, a, b, c) for (int i = b; i >= a; i-=c)
+#define repd(...) overload4(__VA_ARGS__, repd3, repd2, repd1, repd0)(__VA_ARGS__)
+#define trav(a, x) for (auto& a : x)
 
 #define sz(x) (int)(x).size()
 #define mp make_pair
@@ -40,10 +54,26 @@ const int MOD = 1e9 + 7;
 const int INF = 0x3fffffff;
 const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
-const int MX = 1e5 + 3;
+const int MX = 2e5 + 10;
 
 void solve() {
-  
+  int n; cin >> n;
+  string s; cin >> s;
+  bool founddigit = 0;
+  int digit = 0, alph = 0;
+  rep(i, 0, n-1) {
+    if ('A' <= s[i] && s[i] <= 'Z') {
+      if (founddigit) { cout << "No" << nl; return; }
+      if (s[i]-'A' < alph) { cout << "No" << nl; return; }
+      alph = s[i] - 'A';
+    }
+    else {
+      founddigit = 1;
+      if (s[i]-'0' < digit) { cout << "No" << nl; return; }
+      digit = s[i]-'0';
+    }
+  }
+  cout << "Yes" << nl;
 }
 
 int main(int argc, char* argv[]) {
@@ -53,4 +83,3 @@ int main(int argc, char* argv[]) {
   while (t--) { solve(); }
   return 0;
 }
-

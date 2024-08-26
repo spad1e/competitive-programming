@@ -1,6 +1,3 @@
-#pragma once
-#include "header.hpp"
-
 template<class Node, class Tag>
 struct LazySegTree{
   int n;
@@ -68,17 +65,4 @@ struct LazySegTree{
   }
   Node query(int x,int y){ return query(1,n,x,y,1); }
   Node query(int x){ return query(1,n,x,x,1); }
-};
-struct Tag{
-  ll val;
-  Tag(ll _val=0):val(_val){}
-  void apply(int l, int r, const Tag &v) { val+=v.val; }
-};
-struct Node{
-  ll val;
-  Node(ll _val=0):val(_val){}
-  void apply(int l, int r, const Tag &v) { val+=v.val; }
-  friend Node operator+(const Node &lhs, const Node &rhs) {
-    return Node(max(lhs.val, rhs.val)); 
-  }
 };

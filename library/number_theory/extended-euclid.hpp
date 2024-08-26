@@ -5,7 +5,7 @@ Verification :
   https://codeforces.com/contest/1932/problem/G
 */
 #pragma once
-#include "../template/header.hpp"
+#include "header.hpp"
 
 pair<ll,ll> euclid(ll a,ll b){
   ll x=1,y=0,x1=0,y1=1;

@@ -15,20 +15,26 @@ typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 typedef vector<pld> vpld;
 typedef vector<vi> vvi;
+typedef tuple<int, int, int> t3;
+typedef tuple<int, int, int, int> t4;
+typedef tuple<int, int, int, int, int> t5;
+typedef tuple<ll, ll, ll> tll3;
+typedef tuple<ll, ll, ll, ll> tll4;
+typedef tuple<ll, ll, ll, ll, ll> tll5;
 
 template<typename T> using pq = priority_queue<T>;
 template<typename T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 
-#define rep0(a) for (ll i = 0; i < a; ++i)
-#define rep1(i, a) for (ll i = 0; i < a; ++i)
-#define rep2(i, a, b) for (ll i = a; i <= b; ++i)
-#define rep3(i, a, b, c) for (ll i = a; i <= b; i+=c) 
+#define rep0(a) for (int i = 0; i < a; ++i)
+#define rep1(i, a) for (int i = 0; i < a; ++i)
+#define rep2(i, a, b) for (int i = a; i <= b; ++i)
+#define rep3(i, a, b, c) for (int i = a; i <= b; i+=c) 
 #define overload4(a, b, c, d, e, ...) e
 #define rep(...) overload4(__VA_ARGS__, rep3, rep2, rep1, rep0)(__VA_ARGS__)
-#define repd0(a) for (ll i = a; i >= 1; --i)
-#define repd1(i, a) for (ll i = a; i >= 1; --i)
-#define repd2(i, a, b) for (ll i = b; i >= a; --i)
-#define repd3(i, a, b, c) for (ll i = b; i >= a; i-=c)
+#define repd0(a) for (int i = a; i >= 1; --i)
+#define repd1(i, a) for (int i = a; i >= 1; --i)
+#define repd2(i, a, b) for (int i = b; i >= a; --i)
+#define repd3(i, a, b, c) for (int i = b; i >= a; i-=c)
 #define repd(...) overload4(__VA_ARGS__, repd3, repd2, repd1, repd0)(__VA_ARGS__)
 #define trav(a, x) for (auto& a : x)
 
@@ -51,5 +57,27 @@ const int MOD = 1e9 + 7;
 const int INF = 0x3fffffff;
 const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
-const int MX = 1e5 + 3;
+const int MX = 2e6 + 3;
 
+string s[MX];
+
+void solve() {
+  int n, k; cin >> n >> k;
+  string target; cin >> target;
+  rep(i, 1, n) cin >> s[i];
+  vvi dp(k+2, vi(n+2, 0));
+  vector<vpii> from(k+2, vpii(n+2, {0, 0}));
+  dp[k][0] = 1; from[k][0] = {-1, -1};
+  repd(i, 0, k-1) {
+    int cur=0;
+    rep(j, 1, n) cur += (s[j][i]=='1');
+  }
+}
+
+int main(int argc, char* argv[]) {
+  ios_base::sync_with_stdio(0); cin.tie(NULL);
+  int t = 1;
+  cin >> t;
+  while (t--) { solve(); }
+  return 0;
+}
