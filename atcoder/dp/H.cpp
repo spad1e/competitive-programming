@@ -4,18 +4,17 @@ const int MOD = 1e9 + 7;
 const int INF = 0x3fffffff;
 const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
-const int MX = 1e5 + 3;
+const int MX = 1e3 + 3;
 
-int h[MX], dp[MX];
+char c[MX][MX];
+int dp[MX][MX];
 
 void solve() {
-  int n; cin >> n;
-  rep(i, 1, n) cin >> h[i];
-  rep(i, 2, n) {
-    dp[i] = INT_MAX;
-    rep(j, 1, 2) if (i-j > 0) ckmin(dp[i], dp[i-j] + abs(h[i] - h[i-j]));
-  }
-  cout << dp[n] << nl;
+  int n, m; cin >> n >> m;
+  rep(i, 1, n) rep(j, 1, m) cin >> c[i][j];
+  dp[0][1] = 1;
+  rep(i, 1, n) rep(j, 1, m) if (c[i][j] == '.') dp[i][j] = (dp[i-1][j] + dp[i][j-1]) % MOD; 
+  cout << dp[n][m] << nl;
 }
 
 int main(int argc, char* argv[]) {

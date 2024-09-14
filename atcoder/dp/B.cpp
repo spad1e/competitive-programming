@@ -9,11 +9,11 @@ const int MX = 1e5 + 3;
 int h[MX], dp[MX];
 
 void solve() {
-  int n; cin >> n;
+  int n, k; cin >> n >> k;
   rep(i, 1, n) cin >> h[i];
   rep(i, 2, n) {
     dp[i] = INT_MAX;
-    rep(j, 1, 2) if (i-j > 0) ckmin(dp[i], dp[i-j] + abs(h[i] - h[i-j]));
+    rep(j, 1, k) if (i-j > 0) ckmin(dp[i], dp[i-j] + abs(h[i] - h[i-j]));
   }
   cout << dp[n] << nl;
 }
@@ -21,7 +21,7 @@ void solve() {
 int main(int argc, char* argv[]) {
   ios_base::sync_with_stdio(0); cin.tie(NULL);
   int t = 1;
-  // cin >> t;
+  // cin >> t;⁄
   while (t--) { solve(); }
   return 0;
 }

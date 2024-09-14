@@ -4,16 +4,26 @@ const int MOD = 1e9 + 7;
 const int INF = 0x3fffffff;
 const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
-const int MX = 1e5 + 3;
+const int MX = 2e5 + 3;
 
-int h[MX], dp[MX];
+ll h[MX], dp[MX], C;
+deque<pll> dq;
+
+void push(int i) {
+  while (2*h[i] >= dq.back().nd)
+}
+
+ll ask(int i) {
+  
+}
 
 void solve() {
-  int n; cin >> n;
+  int n; cin >> n >> C;
   rep(i, 1, n) cin >> h[i];
+  push(1);
   rep(i, 2, n) {
-    dp[i] = INT_MAX;
-    rep(j, 1, 2) if (i-j > 0) ckmin(dp[i], dp[i-j] + abs(h[i] - h[i-j]));
+    dp[i] = ask(i);
+    push(i);
   }
   cout << dp[n] << nl;
 }

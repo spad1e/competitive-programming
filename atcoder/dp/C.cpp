@@ -6,16 +6,19 @@ const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
 const int MX = 1e5 + 3;
 
-int h[MX], dp[MX];
+int a[MX][3], dp[MX][3];
 
 void solve() {
   int n; cin >> n;
-  rep(i, 1, n) cin >> h[i];
+  rep(i, 1, n) rep(j, 3) cin >> a[i][j];
+  rep(j, 3) dp[1][j] = a[1][j];
   rep(i, 2, n) {
-    dp[i] = INT_MAX;
-    rep(j, 1, 2) if (i-j > 0) ckmin(dp[i], dp[i-j] + abs(h[i] - h[i-j]));
+    rep(j, 3) rep(k, 3) {
+      if (j == k) continue;
+      ckmax(dp[i][k], dp[i-1][j] + a[i][k]);
+    }
   }
-  cout << dp[n] << nl;
+  cout << max({dp[n][0], dp[n][1], dp[n][2]}) << nl;
 }
 
 int main(int argc, char* argv[]) {
