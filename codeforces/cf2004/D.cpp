@@ -1,4 +1,4 @@
-#include "D:/Coding/cp/library/header.hpp"
+#include "header.hpp"
 
 const int MOD = 1e9 + 7;
 const int INF = 0x3fffffff;
