@@ -62,16 +62,37 @@ const int MX = 2e6 + 3;
 string s[MX];
 
 void solve() {
-  int n, k; cin >> n >> k;
+  int n, m; cin >> n >> m;
   string target; cin >> target;
-  rep(i, 1, n) cin >> s[i];
-  vvi dp(k+2, vi(n+2, 0));
-  vector<vpii> from(k+2, vpii(n+2, {0, 0}));
-  dp[k][0] = 1; from[k][0] = {-1, -1};
-  repd(i, 0, k-1) {
-    int cur=0;
-    rep(j, 1, n) cur += (s[j][i]=='1');
+  reverse(all(target)); target = " " + target;
+  rep(i, 1, n) {
+    cin >> s[i];
+    reverse(all(s[i]));
+    s[i] = ' ' + s[i];
   }
+  vector<vector<pair<pii, char>>> from(m+2, vector<pair<pii, char>>(n+2, {{-1, -1}, '0'}));
+
+  from[0][0] = {{0, 0}, '0'};
+  rep(i, 1, m) {
+    int sum = 0, inv = 0;
+    rep(j, 1, n) {
+      sum += (s[j][i] == '1');
+      inv += (s[j][i] == '0');
+    }
+    rep(j, 0, n) {
+      if (from[i-1][j].st == make_pair(-1, -1)) continue;
+      if ((sum + j) % 2 == (target[i]-'0') % 2) from[i][(sum+j)>>1] = {{i-1, j}, '0'};
+      if ((inv + j) % 2 == (target[i]-'0') % 2) from[i][(inv+j)>>1] = {{i-1, j}, '1'};
+    }
+  }
+  if (from[m][0].st == make_pair(-1, -1)) return void(cout << -1 << nl);
+  string ans = "";
+  pii cur = {m, 0};
+  while (cur != make_pair(0, 0)) {
+    ans += from[cur.st][cur.nd].nd;
+    cur = from[cur.st][cur.nd].st;
+  }
+  cout << ans << nl;
 }
 
 int main(int argc, char* argv[]) {
