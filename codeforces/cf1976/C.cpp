@@ -56,32 +56,36 @@ const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
 const int MX = 2e5 + 10;
 
-int a[MX][2], choose[MX];
-ll ans[MX];
+ll a[MX], b[MX], ans[MX];
+bool choose[MX];
 
 void solve() {
   int n, m; cin >> n >> m;
-  rep(i, 1, n+m+1) cin >> a[i][0];
-  rep(i, 1, n+m+1) cin >> a[i][1];
-  int cntp = 0, cntt = 0;
-  ll sum = 0;
+  rep(i, 1, n+m+1) cin >> a[i];
+  rep(i, 1, n+m+1) cin >> b[i];
+
+  int cntn = 0, cntm = 0;
   rep(i, 1, n+m) {
-    if (cntt == m) choose[i] = 0;
-    else if (cntp == n) choose[i] = 1;
-    else choose[i] = (a[i][1] > a[i][0]);
-    if (choose[i]) cntt++;
-    else cntp++;
-    sum += a[i][choose[i]];
+    if (cntn == n) break;
+    if (cntm == m) break;
+    cntn += (a[i] > b[i]);
+    cntm += (b[i] > a[i]);
   }
-  ans[n+m+1] = sum;
-  int lasta[2] = {n+m+1, n+m+1};
-  repd(i, 1, n+m) {
-    sum += a[lasta[choose[i]]][choose[i]] - a[i][choose[i]];
-    ans[i] = sum;
-    if (a[i][0] > a[i][1]) lasta[0] = i;
-    if (a[i][1] > a[i][0]) lasta[1] = i;
+  if (cntm == m) {
+    swap(n, m); 
+    rep(i, 1, n+m+1) swap(a[i], b[i]);
   }
-  rep(i, 1, n+m+1) cout << ans[i] << " \n"[i==n+m+1];
+  ll cnt = 0, sum = 0, tmp = 0;
+  rep(i, 1, n+m+1) {
+    if (cnt == n && tmp == 0 && a[i] > b[i]) tmp = a[i] - b[i];
+    
+    if (cnt == n) sum += b[i];
+    else if (a[i] > b[i]) choose[i] = 1, cnt++, sum += a[i];
+    else sum += b[i];
+  }
+  if (!tmp) tmp = a[n+m+1] - b[n+m+1];
+  rep(i, 1, n+m+1) cout << (choose[i] ? sum-a[i]+tmp : sum-b[i]) << " "; cout << nl;
+  rep(i, 1, n+m+1) choose[i] = 0;
 }
 
 int main(int argc, char* argv[]) {

@@ -56,8 +56,20 @@ const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
 const int MX = 2e5 + 10;
 
+int cnt[MX];
+
 void solve() {
-  
+  string s; cin >> s;
+  ll ans = 0, cur = 0, mcur = 0;
+  for (auto i : s) {
+    cur += (i == '(' ? 1 : -1);
+    if (cur % 2 == 1) cnt[cur/2] = 0;
+    ans += cnt[cur];
+    cnt[cur]++;
+    ckmax(mcur, cur);
+  }
+  cout << ans << nl;
+  rep(i, 0, mcur) cnt[i] = 0;
 }
 
 int main(int argc, char* argv[]) {

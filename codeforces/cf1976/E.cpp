@@ -50,20 +50,59 @@ template<typename T> bool ckmax(T &a, const T &b) { return a < b ? a = b, 1 : 0;
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
-const int MOD = 1e9 + 7;
+const int MOD = 998244353;
 const int INF = 0x3fffffff;
 const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
-const int MX = 2e5 + 10;
+const int MX = 3e5 + 10;
+
+int l[MX], r[MX], a[MX<<1], at[MX], lc[MX<<1], rc[MX<<1], cnt=1, cnt2;
+bool avail[MX];
+vpii order;
+
+void dfs(int u) {
+  if (lc[u] == 0) return void(order.push_back({-a[u], ++cnt2}));
+  dfs(lc[u]), dfs(rc[u]);
+}
 
 void solve() {
-
+  int n, q; cin >> n >> q;
+  rep(i, 1, q) cin >> l[i];
+  rep(i, 1, q) cin >> r[i];
+  a[1] = n; at[n] = 1;
+  rep(i, 1, q) {
+    if (at[l[i]]) {
+      rc[at[l[i]]] = ++cnt; a[cnt] = r[i]; at[r[i]] = cnt;
+      lc[at[l[i]]] = ++cnt; a[cnt] = l[i]; at[l[i]] = cnt;
+      at[l[i]] = cnt;
+    }
+    else {
+      lc[at[r[i]]] = ++cnt; a[cnt] = l[i]; at[l[i]] = cnt;
+      rc[at[r[i]]] = ++cnt; a[cnt] = r[i]; at[r[i]] = cnt;
+      at[r[i]] = cnt;
+    }
+  }
+  dfs(1);
+  sort(all(order));
+  int j = 0, sum = 0, sum2 = 0;
+  ll ans = 1;
+  repd(i, 1, n) {
+    bool eq = 0;
+    while (j < sz(order) && i <= -order[j].st) {
+      if (!avail[order[j].nd]) avail[order[j].nd] = 1, sum++;
+      if (!avail[order[j].nd-1]) avail[order[j].nd-1] = 1, sum++;
+      if (i == -order[j++].st) eq = 1;
+    }
+    if (!eq) ans = (ans*(sum+sum2)) % MOD;
+    sum2 += !eq;
+  }
+  cout << ans << nl;
 }
 
 int main(int argc, char* argv[]) {
   ios_base::sync_with_stdio(0); cin.tie(NULL);
   int t = 1;
-  cin >> t;
+  // cin >> t;
   while (t--) { solve(); }
   return 0;
 }
