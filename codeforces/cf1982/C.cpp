@@ -6,17 +6,18 @@ const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
 const int MX = 1e5 + 3;
 
+ll a[MX];
+
 void solve() {
-  int x, y, k; cin >> x >> y >> k;
-  while (x != 1) {
-    int more = y - x%y;
-    if (k < more) return void(cout << x+k << nl);
-    else x += more, k -= more;
-    while (x % y == 0) x /= y;
+  int n, l, r; cin >> n >> l >> r;
+  rep(i, 1, n) cin >> a[i], a[i] += a[i-1];
+  int cur_l = 0, ans = 0;
+  rep(i, 1, n) {
+    while (a[i] - a[cur_l] > r) cur_l++;
+    ll cur = a[i] - a[cur_l];
+    if (l <= cur && cur <= r) ans++, cur_l = i;
   }
-  cout << (k%(y-1))+1 << nl;
-
-
+  cout << ans << nl;
 }
 
 int main(int argc, char* argv[]) {
