@@ -28,14 +28,10 @@ void solve() {
   };
   ll total = ask(1, n), a, b, c;
   if (total == 0) {
-    ll r = 0;
     repd(i, 60) {
-      if (ask(1, min(n, (1ll<<i)-1))) {
-        r = (1ll<<i)-1;
-        break;
-      }
+      a = ask(1, min(n, (1ll<<i)-1));
+      if (a) break;
     }
-    a = srch(r, 0);
     b = srch(n, a);
   }
   else {
