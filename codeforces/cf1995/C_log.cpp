@@ -39,7 +39,7 @@ template<typename T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 #define trav(a, x) for (auto& a : x)
 
 #define sz(x) (int)(x).size()
-// #define mp make_pair
+#define mp make_pair
 #define pb push_back
 #define st first
 #define nd second
@@ -59,25 +59,19 @@ const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
 const int MX = 2e5 + 3;
 
-int a[MX], c[MX];
+double a[MX];
+int cnt[MX];
 
 void solve() {
-  int n; ll m; cin >> n >> m;
-  map<int, ll> mp;
-  rep(i, 1, n) cin >> a[i];
-  rep(i, 1, n) cin >> c[i];
-  rep(i, 1, n) mp[a[i]] = c[i];
-  ll ans = 0;
-  for (auto [k, v] : mp) {
-    ll c = m, use_a = min(v, m/k);
-    ll avail_k1 = (mp.count(k+1) ? mp[k+1] : 0);
-    c -= use_a*k;
-    ll use_a1 = min(avail_k1, c/(k+1));
-    c -= use_a1*(k+1);
-    ll convertable = min(use_a, avail_k1 - use_a1);
-    ckmax(ans, min(m, m-c+convertable));
+  int n; cin >> n;
+  rep(i, 1, n) cin >> a[i], a[i] = log2(a[i]), cnt[i] = 0;
+  int ans = 0;
+  rep(i, 1, n) {
+    if (cnt[i-1] + log2(a[i-1]) <= cnt[i] + log2(a[i])) continue;
+    if (a[i]==0) return void(cout << -1 << nl);
+    cnt[i] = cnt[i-1] + ceil(log2(a[i-1]/a[i]));
   }
-  cout << ans << nl;
+  cout << accumulate(cnt+1, cnt+n+1, 0ll) << nl;
 }
 
 int main(int argc, char* argv[]) {

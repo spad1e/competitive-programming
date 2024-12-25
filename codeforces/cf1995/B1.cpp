@@ -39,7 +39,7 @@ template<typename T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 #define trav(a, x) for (auto& a : x)
 
 #define sz(x) (int)(x).size()
-#define mp make_pair
+// #define mp make_pair
 #define pb push_back
 #define st first
 #define nd second
@@ -59,25 +59,22 @@ const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
 const int MX = 2e5 + 3;
 
-ll a[MX];
+int a[MX];
 
 void solve() {
   int n; ll m; cin >> n >> m;
-  map<ll, ll> p;
-  rep(i, 1, n) cin >> a[i], p[a[i]]++;
-  ll pv=-1, pk=-1, ans=0;
-  for (auto [k, v] : p) {
-    if (k-pk==1) {
-      rep(i, 0, v) {
-        ll cur = min(m/k*k, i*k);
-        if (m-cur > 0) cur += min((m-cur)/pk*pk, pk*pv);
-        ckmax(ans, cur);
-      }
+  map<int, ll> mp;
+  rep(i, 1, n) cin >> a[i], mp[a[i]]++;
+  ll ans = 0;
+  for (auto [k, v] : mp) {
+    ll avail_k1 = (mp.count(k+1) ? mp[k+1] : 0);
+    rep(i, 1, v) {
+      ll c = m, use_a = i;
+      c -= use_a*k;
+      if (c < 0) break;
+      ll use_a1 = min(avail_k1, c/(k+1));
+      ckmax(ans, use_a*k + use_a1*(k+1));
     }
-    else {
-      rep(i, 0, v) ckmax(ans, min(m/k*k, i*k));
-    }
-    pk=k, pv=v;
   }
   cout << ans << nl;
 }

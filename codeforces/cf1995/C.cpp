@@ -59,17 +59,26 @@ const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
 const int MX = 2e5 + 3;
 
-double a[MX];
-int cnt[MX];
+ll a[MX], cnt[MX];
 
 void solve() {
   int n; cin >> n;
-  rep(i, 1, n) cin >> a[i], a[i] = log2(a[i]), cnt[i] = 0;
+  rep(i, 1, n) cin >> a[i];
   int ans = 0;
-  rep(i, 1, n) {
-    if (cnt[i-1] + log2(a[i-1]) <= cnt[i] + log2(a[i])) continue;
-    if (a[i]==0) return void(cout << -1 << nl);
-    cnt[i] = cnt[i-1] + ceil(log2(a[i-1]/a[i]));
+  rep(i, 2, n) {
+    cnt[i] = cnt[i-1];
+    if (a[i-1] <= a[i]) {
+      ll cur = a[i-1];
+      if (cur == 1) continue;
+      while (a[i] > cur) cur *= cur, cnt[i]--;
+      if (a[i] < cur) cnt[i]++;
+    }
+    else {
+      ll cur = a[i];
+      if (cur == 1) return void(cout << -1 << nl);
+      while (a[i-1] > cur) cur *= cur, cnt[i]++;
+    }
+    ckmax(cnt[i], 0ll);
   }
   cout << accumulate(cnt+1, cnt+n+1, 0ll) << nl;
 }
