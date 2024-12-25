@@ -6,17 +6,9 @@ const ll LINF = 0x1fffffffffffffff;
 const char nl = '\n';
 const int MX = 1e6 + 3;
 
-int a[MX], cnt[MX];
+int a[MX], dp1[MX], dp2[MX], mob[MX], prod[MX];
 vi f[MX];
 bool mark[MX];
-
-void set_val(int x, int val) {
-  int c = sz(f[x]);
-  rep(mask, 1, (1<<c)-1) {
-    int mul = 1; rep(j, c) if (mask>>j & 1) mul *= f[x][j];
-    cnt[mul] = (cnt[mul] + val) % MOD;
-  }
-}
 
 void solve() {
   rep(i, 2, MX-1) {
@@ -26,24 +18,23 @@ void solve() {
 
   int n; cin >> n;
   rep(i, 1, n) cin >> a[i];
+
+  prod[0] = 1;
   rep(i, 1, n) {
-    for (auto p : f[a[i]]) {
-      if (a[i] % p != 0) continue;
-      while (a[i] % p == 0) a[i] /= p;
-      a[i] *= p;
-    }
-  }
-  set_val(a[1], 1);
-  rep(i, 2, n) {
-    ll cur = 0;
+    int cur = (i==1);
     int c = sz(f[a[i]]);
-    rep(mask, 1, (1<<c)-1) {
-      int mul = 1; rep(j, c) if (mask>>j & 1) mul *= f[a[i]][j];
-      cur = (cur + (__builtin_popcount(mask) % 2 ? 1 : -1)*cnt[mul]) % MOD;
+    rep(j, c) prod[1<<j] = f[a[i]][j];
+    rep(mask, 1<<c) {
+      if (mask == 0) continue;
+      int lsb = mask&-mask;
+      prod[mask] = prod[mask ^ lsb] * prod[lsb];
+      cur = (cur + (__builtin_popcount(mask) % 2 ? 1 : -1)*dp1[prod[mask]]) % MOD;
     }
-    set_val(a[i], cur);
-    if (i == n) cout << (cur < 0 ? cur + MOD : cur) << nl;
+    rep(mask, 1<<c) dp1[prod[mask]] = (dp1[prod[mask]] + cur) % MOD;
+    if (cur < 0) cur += MOD;
+    dp2[i] = cur;
   }
+  cout << dp2[n] << nl;
 }
 
 int main(int argc, char* argv[]) {
