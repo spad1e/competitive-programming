@@ -1,0 +1,24 @@
+#include "header.hpp"
+
+const int MOD = 1e9 + 7;
+const int INF = 0x3fffffff;
+const ll LINF = 0x1fffffffffffffff;
+const char nl = '\n';
+const int MX = 1e5 + 3;
+
+void solve() {
+  int n; cin >> n;
+  string s, t; cin >> s >> t;
+  int cnt1 = 0, cnt2 = 0, cur1 = 0, cur2 = 0;
+  rep(i, 1, n) cur1 ^= (s[i-1] == '1'), cnt1 += cur1;
+  rep(i, 1, n) cur2 ^= (t[i-1] == '1'), cnt2 += cur2;
+  cout << (cnt1 == cnt2 || cnt1 == n-cnt2+1 ? "YES" : "NO") << nl;
+}
+
+int main(int argc, char* argv[]) {
+  ios_base::sync_with_stdio(0); cin.tie(NULL);
+  int t = 1;
+  cin >> t;
+  while (t--) { solve(); }
+  return 0;
+}
